@@ -1,0 +1,48 @@
+#include<stdio.h>
+#include<stdlib.h>
+void algo13(int *B, const int n);
+
+int main()
+{
+	const int n = 4;
+	int P[n];
+	algo13(P, n);
+	system("pause");
+	return 0;
+}
+
+
+
+void write(const int *array, const int n)
+{
+	for(int i = 0; i < n; ++i) {
+		printf("%d\t", array[i]);
+	}
+	printf("\n");
+}
+
+
+void algo13(int *B, const int n)
+{
+	for (int i = 0; i < n; ++i) {
+		B[i] = 0;
+	}
+	int i = 0;
+	int j = 0;
+	int p = 0;
+	do {
+		write(B, n);
+		++i;
+		p = 0;
+		j = i;
+		while (j % 2 == 0) {
+			j = j / 2;
+			++p;
+
+		}
+		if (p < n)
+			B[p] = 1 - B[p];
+
+	} while (p < n);
+	return;
+}
