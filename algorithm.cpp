@@ -6,27 +6,27 @@ int main()
 {
     int n;
     cin >> n;
-    int mas[1000], bloc[1000], next[1000], prev[1000];
-    bool forw[1000];
+    int mas[1000], block[1000], next_num[1000], prev_num[1000];
+    bool forward[1000];
     for(int i=1;i<=n;i++) {
         mas[i] = i;
-        bloc[i] = 1;
-        forw[i] = true;
+        block[i] = 1;
+        forward[i] = true;
     }
-    next[1] = n+1;
-    int x = prev[1] = 0;
+    next_num[1] = n+1;
+    int x = prev_num[1] = 0;
     while(x!=1) {
         for(int i = 1; i <= n; i ++) {
             bool bracket_open = false, bracket_close = false;
             for(int j = 1; j <= n; j ++) {
-                if(bloc[j]==i) {
+                if(block[j]==i) {
                     bracket_open = bracket_close = true;
                     break;
                 }
             }
             if(bracket_open) {cout << "( ";}
             for(int j = 1; j <= n; j ++) {
-                if(bloc[j]==i) {
+                if(block[j]==i) {
                     cout << mas[j] << " ";
                 }
             }
@@ -34,33 +34,33 @@ int main()
         }
         cout << "\n";
         x = n;
-        while(x>1 && ((bloc[x]==x && forw[x]) || (bloc[x] == 1 && !forw[x]))) {
-              forw[x] = !forw[x];
+        while(x>1 && ((block[x]==x && forward[x]) || (block[x] == 1 && !forward[x]))) {
+              forward[x] = !forward[x];
               x--;
         }
-        int i=bloc[x];
-        if(forw[x]) {
-            if(next[i]>x) {
-                if(next[i] == n+1) {
-                    next[x] = n+1;
+        int i=block[x];
+        if(forward[x]) {
+            if(next_num[i]>x) {
+                if(next_num[i] == n+1) {
+                    next_num[x] = n+1;
                 }else {
-                    next[x] = next[i];
-                    prev[next[i]] = x;
+                    next_num[x] = next_num[i];
+                    prev_num[next_num[i]] = x;
                 }
-                next[i] = x;
-                prev[x] = i;
+                next_num[i] = x;
+                prev_num[x] = i;
             }
-            bloc[x] = next[i];
+            block[x] = next_num[i];
         }else {
-            if(bloc[x] == x) {
-                if(next[i] == n+1) {
-                    next[prev[i]] = n+1;
+            if(block[x] == x) {
+                if(next_num[i] == n+1) {
+                    next_num[prev_num[i]] = n+1;
                 }else {
-                    next[prev[i]] = next[i];
-                    prev[next[i]] = prev[i];
+                    next_num[prev_num[i]] = next_num[i];
+                    prev_num[next_num[i]] = prev_num[i];
                 }
             }
-            bloc[x] = prev[i];
+            block[x] = prev_num[i];
         }
     }
 }
